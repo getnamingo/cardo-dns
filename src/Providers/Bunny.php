@@ -784,13 +784,11 @@ class Bunny implements DnsHostingProviderInterface
         $raw = curl_exec($ch);
         if ($raw === false) {
             $err = curl_error($ch);
-            curl_close($ch);
             throw new \Exception("HTTP request failed: {$err}");
         }
 
         $status = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $contentType = (string)(curl_getinfo($ch, CURLINFO_CONTENT_TYPE) ?: '');
-        curl_close($ch);
 
         if ($status >= 400) {
             $msg = "HTTP {$status}";
